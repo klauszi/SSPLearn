@@ -1,0 +1,124 @@
+Moderne Datenspeicher und Übertragungstechniken erfordern
+digitaler Sprache und Audiosignalen. Um das analoge Signale vom
+Mikrophon aufnehmen, muss es in der Amplitude quantisiert und in
+der Zeit abgetastet werden. Erst dann können wir dies auf unserer
+Hardware speichern oder mit dem Handy versenden. Abschnitt 6.1
+beschäftigt sich mit der Quantisierung, wobei dieser Abschnitt
+das Konzept der Abtastung und ihren Effekt im Frequenzbereich
+behandelt.
+
+Das Abtasten ist ein Diskretisieren auf der Zeitachse, sodass man
+Schnappschüsse des analogen Signals im gleichen Abstand erhält.
+Sowas ist in Abb. 3.4 dargestellt; die Werte zwischen zwei
+Abtastwerte sind dabei unbekannt. Wenn wir jedoch vorweg
+Kenntnisse über die Glattheit des Signals kennen, d.h. wie
+schnell sich das Signal über der Zeit variert, können wir
+mithilfer der Interpolation das ursprüngliche Signal
+rekonstruieren. Die Glattheit wird dabei durch die höchste
+Frequenz bestimmt. Wobei Signale mit hohen Frequenzen sich sehr
+schnell über der Zeit ändern, haben Signale mit niedrigen
+Frequenzen eine stärkere Glattheit. Das Abtasttheorem besagt,
+dass man durch das zweifache Abtasten der Grenzfrequenz das
+Signal perfekt rekonstruieren kann. Die impliziert, dass man die
+geringste Abtastfrequenz wählen sollte, damit man Abtastwerte
+spart (Redundanzvermeidung).  Daher sollte schon vorweg wissen,
+welche Grenzfrequenz im zu speicherenden Signal vorkommt.
+Praktisch werden Signale häufig mit einem Tiefpassfilter
+gefiltert und dann erst abgetastet.
+
+Diskretisieren kann formal durch die Multiplikation der
+Zeitdomäne mit einem Delta Kamm mit der Abtastperiode Ts
+betrachtet werden. Dies ist in Abb. 3.4 zu sehen. Da eine
+Multiplikation in der Zeitdomäne eine Faltung in der
+Frequenzdomäne bedeutet, kann die Frequenzdomäne genutzt werden,
+um den Effekt des Abtasten zu analysieren. Dies wird uns helfen,
+die notwendigen Bedingungen abzuleiten, damit man ein Signal
+perfekt rekonstruiert werden kann.
+
+Den Delta kamm in Abb. 3.5 ist formal definiert als die Summe von
+Dirakstössen mit dem  Abstand Ts.
+
+Den Spektrum kann durch die Fouriertransformation ermittelt
+werden.
+
+Das Integral kann durch die sifting eigenschaft gelöst werden.
+Das Integral eines mit n verschobenen Dirakstoss multipliziert
+mit einer Funktion ergibt nämlich den Funktionswert von n. 
+
+Die Summe und der Integraloperator können aufgrund der Linearität
+vertauscht werden, sodass man eine Summe von komplexen
+Exponentialfunktionen erhält.
+
+Falls omega Ts = 0 ist oder ein Vielfaches von 2pi, dann ergeben
+die einzelnen Exponentialfunktion eins. In der unendlichen Summe
+dementsprechend unendlich. Die unendliche Summe anderer Werte
+führen zu null. Im gaussischen Koordinatensystem würde dies
+nämlich zur Summe von symmetrischen Zeiger bedeuten(Addition
+bedeutet dann 0). Eine unendliche Summe würde daher zur gegenseitiger
+Elemenierung bedeuten.
+
+Das Ergebnis ist eine Funktion im Spektrum, welches manchmal
+gegen unendlich und ansonsten gegen 0 geht. Solch eine Funktion
+sieht bekannt aus, es handelt sich nämlich um einer
+Dirakfunktion, mit der wir gestartet haben. Anstelle einer Serie
+von Impulsen mit dem Abstand Ts, erhalten wir einen mit dem
+Abstand fs. Dies kann in Abb. 3.6. gesehen werden.
+
+In Kapitel 3.1 wurde eingeführt, dass ein Diskrete Zeit Domäne zu
+einem periodischen Frequenz-Domän-Signal führt. Die vorherige
+Berechnung hat nicht nur bewiesen, dass dis durch die Analyse der
+Frequenz Domäne Verhalten des Abtasten, sondern die Distanz
+zwischen dieser periodischen Widerholdung nun bekannt ist. Die
+Distanz beträgt genau fs. (...)
+
+Wir nehmen an, dass die Fouriertransformation eines
+kontinuierlichen signals x(t) in Abb. 3.7 gezeigt wird.
+
+Abb. 3.8 zeigt das Abtasten durch die Faltung des Signals mit
+einem Dirak kamm mit einer Abtastfrequenz.
+
+Diese Faltung erzwingt ein periodisches Verhalten im Spektrum.
+Das Abtasttheorem kann nun visuell aus Abb. 3.9 abgeleitet
+werden. Falls die Abtastfrequenz perfekt ist, dann kann das
+Tiefpassfilter die Wiederholungen entfernen, sodass eine
+Rücktransformation in der Zeitdomäne zum gewünschten Signal
+führt. Interessant ist hierbei der Fakt, dass aus der
+zeitdomänischen Perspektive der Tiefpassfilter zu einer
+Interpolation der abgetasteten Werte führt. Falls die
+Abtastfrequenz zu klein gewählt wird bzw. das Signal nicht
+genügend häufig abgetastet wird, dann überlappen sich die
+Energien der niedrigen Frequenzen mit den höheren Frequenzen.
+Dieser Effekt wird als Aliasing Effekt bezeichnet und resultiert
+zur einer Verzerrung in der Zeitdomäne.
+
+Das Abtasttheorem:
+Falls das kontinuierliche Signal bandbeschränkt ist, d.h. eine
+Grenzfrequenz fmax hat, und Frequenzen unterhalb von fmax hat,
+dann kann das Signal korrekt repräsentiert und eindeutig
+von einer Menge von abgetasteten Wert, dessen Distanz alle gleich
+sind, rekonstruiert werden, wenn die Abtastfrequenz größer als
+zwei mal fmax gewählt wird. 
+
+Telephon Geräte, wie z.B. ISDN oder GSM, haben eine Abtastrate
+von über 8kHz. Nach dem Abtasttheorem können keine Informationen
+über 4kHz übertragen werden, somit wird ein Tiefpassfilter vorher
+erfordert. In der Praxis kann jedoch kein endlich langer Filter
+realisiert werden, sodass alle Frequenzen über oder unter einer
+Frequenzlinie vollständig gedämpft werden kann. Da die Steilheit eines
+Tiefpassfilter beschränkt ist, wird das Spektrum ab einem
+bestimmtent Wert zu der Abtastrate verzerrt. In Anbetracht dieser
+limitierten Steilheit des praktischen Tiefpass, werden
+Sprachsignale mit einer Abtastfrequenz von 8khz mit einer
+Grenzfrquenz von 3.4khz. Wie auch immer, Telephonsprache ist
+ziemlich verständlich; meistens sind stimmlose Töne, wie plosive,
+von diesen Effekt betroffen. [...]
+
+20 kHz ist für menschen noch hörbar.
+
+
+
+
+
+
+
+

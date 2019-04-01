@@ -1,0 +1,133 @@
+Häufig ist in der praktischen Anwendung der Signalverarbeitung
+das Ziel, ein Signal für weitere Kontexte zu ändern. Um dies zu
+ermöglichen, ist es wichtig, dass die Eigenschaften eines Signals
+im modifizierten Signal leichter zugreifbar sind. So wie in
+Kapitel 12 zu sehen, ist die Grundperiod/frequenz ein Beispiel
+hierfür, dass in der Zeitperiode nicht so einfach zugreifbar ist.
+Die auf zeit-basierten Algorithmen können die Grundperiode
+schätzen, d.h. durch Überlagerung von Nullstellen und Peaks,
+jedoch sind diese sehr anfällig für Fehler. Im Bezug auf die
+Autokorrelation, kann das Signal durch das Transformieren der
+Domäne eines Signales für eine robustere Schätzung hilfreich
+sein. Solch eine andere Domäne für die Analyse von den
+Eigenschaften, die man wissen möchte, ist die Spektral-Domäne. 
+
+Das Konzept der Dekomposition eines Signal in ihre
+Frequenzanteile wird in der Fourier Theorie festgehalten. In
+Anbetracht der Fourier Repräsentation korreltiert ein Signal 
+mit linearen, unabhängige und komplexe Eigenfunktionen. Die
+Ergebnisse werden dann durch komplexwertige Fourierkoeffizienten
+gespeicherten. Da jede complexe Expontialfunktion durch eine
+Summe von Sinus und Cosinusfunktionen dargestellt werden kann,
+kann dieser Prozess als eine Korrelation mit Sinus- und
+Cosinusfunktionen betrachtet werden. Unter der linearen
+Unabhängigkeit der komplexen Exponentialfunktionen ist dabei zu
+verstehen, dass die Fourier-analyse alle Information zum
+Ursprungsignal stets, nur kompakter, beibehält. Da keine
+Information hinzugefügt, noch entfernt wird, kann dis als eine
+andere Sichtweise eines Signals betrachtet werden. In solch einem
+Prozess werden nicht sehbare Attribute sehbar, andere sehbare
+Attribute jedoch unsichtbar.
+
+Ein klarer Ton besteht aus einen einzigen Sinoid mit einer
+bestimmten Amplitude, Frequenz und Phase. Da eine Cosinusfunktion
+nur eine Verschiebung einer Sinusfunktion ist, nämlich eine
+Verschiebung von pi/2, beziehen sich beide Funktionen zu
+sinusförmige Signale. Eines der Hauptidee der Fourier Theorie
+ist, dass jedes periodisches Signal immer durch gewichtete
+Hauptsinoide repräsentiert werden kann, welche die Periodizität
+und Zahlenfaktor dieser Sinoide erfasst, welche auch als
+Harmonische bezeichnet werden. Die Bestimmung dieser Gewichte
+wird als Fourier Serien Analyse bezeichnet.
+
+Die Fourier Serien Analyse einer Rechteckfunktion ist in
+Abbildung 3.1 dargestellt. Der Sinoid mit der geringsten Frequenz
+ist der Anteil der Grundperiode zum Analysieren und das Endsignal
+ist die Summe  gewichteten und vorangegangenen Harmonischen. In
+diesem Beispiel trägt die Grundfrequenz den größten Anteil der
+Energie zu diesem Signal und dann gibt es einen exponentiellen
+Abstieg von Gewichten der höheren Harmonischen. Die Approximation
+verbessert sich stets mit der Anzahl der genutzten Harmonischen.
+Wegen dem plötzlichen Sprung der Rechteckfunktion, kann man dies
+nur mit unendlich vielen Harmonischen perfekt wiedergeben.
+
+Die formale mathematische Definition der Fourier-Serien-Analyse
+ist in Gleichung 3.1 zu finden. Der Wert b0 ist der sogenannte DC
+offset und ist der durchschnittliche Wert, worum das Signal
+osziliert. Sprache kann generell mit einem DC offset Wert von 0
+angenommen werden. Das periodische Signal x(t) wird durch den DC
+offset und überlagerten und gewichteten Sinus und
+Cosinusfunktion, die Vielfachen der Grundfrequenz sein müssen,
+repräsentiert. b_h sind Gewichte für die Kosinusfunktionen,
+wohingegen a_h Gewichte für die Sinusfunktionen sind. Da eine
+Kosinusfunktion gerade ist (also symmetrisch) und die
+Rechteckfunktion ungerade ist, sind alle Anteile der
+Cosinusfunktion null bzw. b_h = 0. Die Signal werden
+dementsprechend ausschließlich durch a_h repräsentiert.
+
+Da Sprache ein nicht-stationäres(Was heißt das?)
+spektral-temporäres (Was heißt das?) komplexes Signal ist, kann
+es nicht exakt durch einen einzelnen Sinuoid und gewichtete
+Harmonische wie in der Fourier-Serien-Analyse approximiert
+werden. Glücklicherweise kann man in der Fourier-Theorie die
+Fourier-Serien-Analyse für beliebige, also nicht-periodische
+, Signale erweitert werden; dies wird Fourier-Analyse genannt.
+Die Gleichung 3.2 zeigt wie die kontinuierliche
+Fourier-Transformation genutzt werden kann, um jedes
+kontinuierliche Signal durch einen Integral über alle komplexen,
+gewichtete Frequenzen im ganzen Spektrum des Signals zerlegt
+werden kann. Das Signal korrliert hierbei mit linearen,
+unabhängigen, komplexen Exponentialfunktion. Hierzu benötigen wir
+jedoch unendliche viele Frequenzen im Gegensatz zu der
+Fourier-Serien-Analyse, die nur die Grundfrequenz und Harmonische
+benötigt.
+
+Dieser Kurs beschäftigt sich mit digitalen Sprachsignalen, d.h.
+das die Signale nicht kontinuierlich, sondern diskret und
+gesamplet in der Zeitdomäne sind. Es wird dann notwendig eine
+diskrete Fourier-Transformation (DTFT) in Gleichung 3.3 zu
+definieren. Das Zeitsignal besteht nun aus diskreten Zeitindexen,
+wird jedoch durch einen Integral über alle kontiniuierliche
+Frequenzspektrum repräsentiert. Das Frequenzspektrum ist
+zusätlich aber wegen den Nyquist Theorem auf die hälfte des
+Sample-Frequenz beschränkt. Um diese Tatsache zu berücksichtigen,
+die Grenzen des DTFT Frequenz muss mit 0 bis 2pi angepasst
+werden. Es ist wichtig zu verstehen, dass die Frequenz unendlich
+abzählbar, jedoch durch Schranken beschränkt sind...
+
+Bestimmte Eigenschaften der diskreten und kontinuierlichen
+Fouriertransformation werden wichtig, wenn wir mathematisch
+zwischen Zeit und Frequenzdomäne arbeiten. Diese Eigenschaften
+können durch die Defintion der Fouriertransformation abgeleitet
+werden. Hierdurch erhält man eine Intuition mit dem Umgang von
+Zeit und Frequenzdomän-Repräsentationen. 
+
+Eine wichtige Eigenschaft ist die Linearität des
+Fouriertransformation-Operator. Die Fouriertransformation von
+zwei überlagerten und gewichteten Signale ist das selbe wie zwei
+überlagerten und derselben gewichteten Fouriertransformanten.
+
+In den meisten Anwendung von digitalen Signalverarbeitung werden
+reelwertige Signale in der Zeitdomäne behandelt. Solche wie die
+Menge von Spannungsschwankungen beim Aufnehmen durch einen
+Mikrophon. Die Natur der Fouriertransformation erfordert, dass
+die reelwertigen Signale eine komplexkonjugierte Symmetrie
+aufweisen.  
+
+Die Korrelation eines geraden Signals mit einem komplexen
+Exponentialfunktion ist äquivalent zu der Korrelation eines
+Signals mit einer ungeraden Sinus- und geraden Kosinusfunktion.
+Da die sinus und cosinus funktion mit der reelen und imaginären
+Teil korrespondieren, die Fouriertransformation nimmt den geraden
+Teil des Zeitsignals in den reelen Teil, wobei der ungerade Part
+in den imaginären Teil fällt.
+
+Eine weitere wichtige Eigenschaft die beim Filtern angwendet wird
+ist die Faltung, denn eine Faltung in der Zeitdomäne entspricht
+einer Multiplikation im Frequenzspektrum.
+
+
+
+
+
+

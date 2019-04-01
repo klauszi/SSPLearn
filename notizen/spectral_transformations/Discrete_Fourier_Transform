@@ -1,0 +1,31 @@
+Das DTFT erlaubt uns die Spektraltransformation eines
+abgetasteten Signals, dabei ist das Transformiert über eine
+begrenzten Intervall kontinuierlich. Zusätzlich ist der
+Zeitbereich über einen unendlichen Intervall definiert, sodass es
+praktisch nicht nutzbar ist. Daher muss der Zeitbereich begrenzt
+werden, dies ist nur durch das Fenstern möglich, was somit einen
+Teilabschnitt des Signals auswählt. Die einfachste Form des
+Fenstern ist das Multiplizieren mit einer Rechteckfunktion. Dies
+wird in Abb. 3.1 dargestellt.
+
+Das DTFT eines diskreten, nicht periodischen Signals führt zu
+einem kontiniuerlichen periodischen Spektrum. Die
+Fouriertransformation einer Rechteckfunktion ist eine
+Sinc-Funktion, damit ist zu verstehen, dass das Fenstern in der Zeitdomäne 
+zu einer Faltung mit einer Sinc-Funktion im Spektrum zur Folge
+hat. Diese Faltung verschmiert den Frequenzinhalt des Signals und
+resultiert in einer absteigenderen Frequenzauflösung durch die
+Verzerrung im Spektrum. Das ist eine unvermeidbare Konsequenz des
+Fenstern, sodass man eine Trade-off der Zeit- und
+Frequenzgenauigkeit abwägen muss. Falls das Rechteckfenster groß
+ausgewählt wird, wodurch die temporäre Auflösung verloren geht,
+werden die Sinc-funktionen dichter und man erhält eine bessere
+Frequenzauflösung. Andersrum führt es zu einer besseren
+temporären Auflösung, jedoch zu einem schlechteren Spektrum.
+
+Das kontinuierliche Spektrum musst nun aufgrund digitalisierung
+ebenfalls abgetastet werden. Dies bedeutet einer Multiplikation
+mit einem Dirak Kamm. Das gefensterte Zeitsignal wird daher in
+der Zeitdomäne wiederholt.
+
+

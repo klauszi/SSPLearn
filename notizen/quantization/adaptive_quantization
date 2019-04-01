@@ -1,0 +1,97 @@
+Nicht uniforme Quantisierung führen eine nicht lineare
+Kompression auf der Amplitudendomäne des Signals durch. Jedoch
+ist dieser Prozess noch uniform in der Zeit, indem die selbe
+Kompressionskurve für jede Zeitframe angewandt wird. Nun fangen
+wir an über eine Kompressionskurve nachzudenken, welches sich
+über die Zeit ändert. Die Kompressionskurve soll sich auf das
+Intervall des entsprechenden Zeitframe anpassen. Dieser Prozess
+ist als adaptive Quantisierung bekannt. 
+
+Der einfachste Weg solch einer Implemenation der adaptiven
+Quantisierung ist die Untersuchung des Signal für eine bestimmte
+Zeit. Falls dies nur zwischen -0.2 bis 0.2 skaliert ist, dann
+passt sich das Quantisierungsintervall diesen an. Anderseits,
+falls es zwischen -1 und 1 skaliert wäre, würde die selbe Anzahl
+von Quantisierungsintervalle genutzt werden, nur würden diese
+Intervalle länger sein. Durch die Anpassung des
+Quantisierungskurve über der Zeit bezogen auf die Skalierung des
+Signals, dann korrespondiert das xmax für jeden Frame mit den
+Grenzen des PDF signals. So wie im ersten Kapitel gezeigt, erhöht
+dies die SNR, da keine Bits für Amplituden verschwendet werden,
+die im Signal garnicht enthalten sind.
+
+Adaptive Quantisierung nutzt generell einen uniformen
+Quantisierer, dass k Ebenen hat, führt jedoch einen zeitliche
+Anpassung der Schrittgröße deltx ein. Da der
+Quantisierungsrauschen eine Energie von delta x hoch 2 / 12 hat,
+die Energie des Quantisierungsrausch ändert sich über der Zeit,
+falls die Schrittgröße deltax eine Funtkion der Zeit ist. Falls
+ein Signal laut ist, dann wird das Rauchen ebenfalls laut, aber
+die höheren Amplituden verdecken dieses Rauschen. Wenn ein leiser
+Signal quantisiert wird ohne diesen Intervall des lauten Signal,
+dann wird das Rauschen nicht gut genug verdeckt. Adaptive
+Quantisierung löst das Problem durch Anpassung des Intervall im
+leisen Signal, sodass das Rauschen kleiner wird und somit
+einfacher durch das Signal verdeckt wird.
+
+Der Anpassungschritt wird häufig durch die Quadratwurzel der
+Signalpower oder der Standardabweichung implementiert. Die
+Schrittgröße cann jetzt als eine Funktion der Zeit ausgedrückt
+werden, welches abhängig von der Standardabweichung dem gewählten
+Intervall ist.
+
+Es gibt unterschiedliche Varianten des Prozesses. Sie werden
+allgemein durch ihre Schätzung der Standardabweichung
+unterschieden. Die Zwei Standardmethoden werden als adaptives
+Forwärts Quantisiern und und Rückwärtsquantisieren bzeichnet.
+
+AQF ist eine Methode welcher die Varianz durch den Durchschnitt
+aller quadrierter nicht quantisierter Abtastwerte über einen
+gleitenden Fenster der Länge N-1 berechnet. D.h. die
+Standardabweichung wird durch einen Zeitblock der Länge N
+geschätzt.
+
+DA deltax eine Funktion über der Standardabweichung ist, ist es
+notwendig nicht nur den Quantisierungsindex zu übergeben, sonder
+auch die Schrittgröße, also delta x oder die Standardabweichung.
+Dies kann in Abb. 6.10 gesehen werden. Das Eingangssignal x(n)
+wird für N Abtastwerte gepuffert und dann wird die Signalenergie
+und Standardabweichung berechnet. Dies wird nun genutzt um die
+Quantisierungstufe deltax zu bestimmen, welches in den
+Quantisierer übergeben wird.
+
+AGF verbessert die Soundqualität durch Verbesserung der SNR
+während schwacher Bereiche des Sound, jedoch ist es notwendig die
+Quantisierungsstufe deltax zu übertragen und dies erfordert mehr
+Bits zum Übertragen. Eines der Hauptziele der
+Sprachcodierungsalgorithmen ist die Anzahl der transportierten
+Bits bezüglich der Minimalkosten zu reduzieren und Effizienz zu
+steigern. Dies kann durch das Nutzen der rückwärts adaptiven
+Quantisierung erfolgen, ein Prozess der die Schrittgröße durch
+die quantisierten Signale berechnet. Da die quantisierten Signale
+benutzt wird, kann der Prozess vom Receiver durchgeführt werden.
+Dieser hat nämlich direkten Zugriff auf den momentanen und
+vergangenen quantisierten Werte. Der Vorteil ist, dass die
+Bitrate nicht übertragen wird. Abb. 6.11 zeigt das deutsche Wort
+"das" mit den Schrittgrößen als Funktion berechnet durch AQB und
+AQF. Die AQF-Methode ...
+
+AQB nutzt rekursives Glätten zum Schätzen der Signalenergie.
+Damit meint man, dass die Standardabweichung für das aktuelle
+Abtastwert durch die Berechnung eine gewichteten durchschnitt des
+vorherigen Standardabweichung und vom aktuellen Energiesignal
+berechnet wird. Der Durchschnitt ist durch ein Glättungsfaktor
+alpha bestimmt. 
+
+Falls alpha ungefähr eins ist, dann beeinflusst der aktuelle Wert
+sehr stark die neue Schätzung. Andersrum bei alpha ungefähr 0.
+
+Abb. 6.12 zeigt die lokale Sprachsignalenergie als eine Funktion
+der Zeit und den SNR als eine Funktion der Zeit für
+unterschiedliche quantisierungsmethoden. Es kann erkannt werden,
+dass bei geringer Signalenergie, z.B. beim Wort "also", der SNR
+bei uniformer Quantisierung abfällt. Da der Quantisierungsenergie
+ist konstant über der Zeit, Die Rauschenergie wird mehr hörbar,
+wenn die Signalenergie fällt und daher fällt der SNR. Dieses
+Problem ist nicht bei A und u laws...  Darstellung zeigt
+eindeutig, dass adaptive besser ist, da SNR konstant.

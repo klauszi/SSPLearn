@@ -1,0 +1,48 @@
+In seiner einfachsten Form wäre der Waveform Coding die Anwendung
+eines Quantisierers. Effiziente Quantisierungsmethoden, solche
+wie die nicht-unifomre oder adaptive Quantisierung, kann
+angewendet werden, um die Anzahl der Bits pro Abtastwert zu
+reduzieren. Da dieses Verfahren sich nicht mit parametrischer
+Beschreibung beschäftigt, erfordert das Verfahren eine hohe
+Bitrate.
+Methoden, wie DPCM, wurden entwickelt um den dynmaischen
+Intervall des Signal einzuschränken, mit der Bemühung, bessere
+Methoden des Waveform Coding zu entwickeln. DPCM dekorreliert das
+Signal durch das Subtrahieren gewichteter und aufeinanderfolgende
+Zeitwerte  miteinander. Z.B. im einfachsten Fall mit x(k) - a
+x(k-1). Abb. 7.3 zeigt ein Signal x(k) und das Resultierende. Es
+kann erkannt werden, dass der dynamische Intervall nun kleiner
+geworden ist als im Original, welches uns erlaubt, weniger Bits
+für die Quantisierung zu nutzen. Die Differenzausgabe kann
+gedanklich auch als gefilterten Ausgabe mit einem koeffzienten a
+angesehen werden, welches mit der LPC Analyse mit einem
+Koeffizienten vergleichen lässt. Jedoch können auch wie bei der
+LPC Analyse mehrere Koeffizienten genutzt werden und in einem
+Vektor a gespeichert werden. Wie in der LPC Analyse werden
+aufeinanderfolgende Sprachwerte dekorreliert,  das Signal
+rauscht und ... Der Hauptunterschied ist, dass LPC Analyse das
+Anregungssignal parametersiert und DPCM die zeitveränderlichen
+Ergebnisse quantisiert und übertragt. Das Speichern in Bitrate
+ist auch weniger als beim LPC-Coding, während die Qulität Höher
+ist. DPCM ist ein häufiger Coding Schema, nicht nur für Audio,
+sonder auch für Video.
+
+Damit der Prozess funktionert, muss der Receiver Zugriff auf die
+Koeffizienten a haben, sodass der kodierte Signal invers
+gefiltert wird, um ein verständliches Ausgabesignal zu
+produzieren. Wenn diese Koeffizienten sich dem Frame anpassen,
+dann müssen sie mit dem quantisierten Rest ebenfalls übertragen
+werden. Dieser Prozess wird open loop prediction scheme genannt.
+In der closed-Loop Einstellung werden die Filterkoeffizienten vom
+quantisierten Signal berechnet, d.h. die Koeffizienten werden vom
+Receiver wie vom Sender berechnet. Da die Koeffizienten damit
+nicht mehr versendet werden müssen, können wir mehr koeffizienten
+für weitere Begrenzung der Dynamik des Signal nutzen und im
+idealFall das Signal komplett weissen. Konzept verbraucht eine
+kleinere Bitrate 50% im Vergleich zu log PCM.
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+In einem parametrischen Coding scheme beschäftigt sich das
+Spracherzeugungsmodell mit wenigen Parameter, wie Koeffzienten,
+die den Vokaltraktfiler beschreiben, stimmhafte/nichtstimmhafte
+Information, Grundfrequenz und Energie. Die Parameter des Models
+passen sich für aufeinanderfolgende Sprachframes, Codierung und
+Übertragung an. Ein Beispiel eines Spracherzeugungsmodell ist
+der LPC Vocoder in Abb. 7.5. Ein Impulsgenerator kreiert Impulse
+mit einer Distanz der Grundperiode um stimmhafte Sprache zu
+erzeugen. Wobei stimmlose Sprache durch einen Rauschgenerator
+modelliert wird. der LPC-10 Modell muss ein Bit für diese
+Entscheidung übertragen, wohingegen der Mixed Excitation linear
+Prediction (MELP) Methode einen gemixxten Anregung durch eine
+gewichteten Durchschnitt von Rauschen und Impulse Train mixxt.
+Ein Steigungsparameter kontrolliert die Energiemenge im Signal.
+Der angepasste Anregungssignal wird dann durch einen
+Vokaltraktfilter gefiltert, der durch Filterkoeffizienten
+übertragend für die jetztige gefensterte Sprachsegment
+repräsentiert.
+
+der LPC 10 hat seinen Namen von dem Fakt, dass dieser 10 LPC
+Koeffizienten überträgt. Diese Methode parameterisert gefensterte
+Sprachsegmente mit einer Blocklänge von 22.5 mx mit einer
+Abtastfrequenz von 8kHz, welches eine Summe von 180 Abtastwerte
+ergibt.  Dies wurde standartisiert durch Versuche mit
+unterschiedlichen Framelängen und der Entscheidung, welche Werte
+den besten Trade off bezogen auf Qualität und Bitrate erzielt.
+Manchmal ist die Bitrrate der entscheidende Faktor und wir
+erzwingen einen Codec zu design. Ein Beispiel ist die GSM
+Telephonie , wo die Übertragung über einen Kanal mit einer
+vordefinierten Bitrate entscheidend ist.  Es wird nun jetzt
+notwendig einen Codec zu desgnien, sodass es die optimale
+Qualität hat und diesen spezifische Bitrate durch Anpassung der
+Anfangswerte erreicht, gegeben durch den Paramtermodell. Dies
+könnte die Blocklänge oder dsogar die Anzahl der LPC
+Koeffizienten sien.
+
+Die LPC Koeffizienten durch eine typischen LPC-Analyse
+produziert, sind autoregressive Filterkoeffizienten. Ein Problem
+ist, dass der dynamische Intervall etwas größer und nicht
+begrenzt ist. Dies macht die Quantisierung der LPC-Koeffizienten
+schwierig. Jedochwissen wir, dass LPC koeffizienten durch eine
+andere Domäne repräsentiert werden kann, solche wie die
+Reflexionskoeffzienten im Rohrmodell. Die Umwandlung kann durch
+einen einfachen Algorithmus erfolgen. Die Levinson Durbin
+Rekursion, berechnet die AR Koeffzienten automatisch, berechnet
+dabei auch die Reflextionskoeffzienten gleichsamt. Der Vorteil
+der Quantisierung eder Reflextionskoeffzienten ist im gegensatz
+zu den AR Koeffzienten, dass nach Definition, der Intervall
+zwischen -1 und 1 liegt. 
+
+-xmax und xmax der Quantisierungskennlinie kann daher einfach auf
+-1 und 1 gesetzt werden. jedoch wird der Logarithmus des
+Verhältnis eines Bereiches und des nachfolgenden Bereich für die
+Spracherzeugung genommen. Der Logarithmus ist dabei ein guter
+Kompressor. dies liegt daran, dass r nahe bei 1 bzw. -1 liegen.
+
+Um die optimale Bitrate zu erhalten, genügt dies nicht. Um die
+Birate so gut wie möglich zu verringern, müssen unterschiedliche
+Methoden betrachtet werden, welche die LPC-Koeffizienten in eine
+andere Domäne überführen. Dies gilt auch für den gain paramter,
+welches durch den logithmus vor der Quantisierung komprimiert
+wird.
